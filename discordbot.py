@@ -53,7 +53,7 @@ async def watch():
                         timeList[pcNumber] = now
                         isSentList[pcNumber] = 0
                     # await message.delete()
-                    # await channel.purge(limit=1)
+                    await channel.purge(limit=1)
 
             await asyncio.sleep(1)
             intTime -= 1
