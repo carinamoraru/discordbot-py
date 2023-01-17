@@ -36,8 +36,7 @@ async def on_ready():
         plain_text_content='Hello, Checking bot is ready!',
         html_content='<strong>and easy to do anywhere, even with Python</strong>')
     try:
-        tt = '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'
-        sg = SendGridAPIClient(tt)
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         response = sg.send(message)
         print(response.status_code)
         print(response.body)
