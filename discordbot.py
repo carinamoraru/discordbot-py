@@ -4,6 +4,8 @@ from discord.ext import commands, tasks
 from datetime import datetime
 import asyncio
 import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 PREFIX = os.environ['PREFIX']
 TOKEN = os.environ['TOKEN']
@@ -27,6 +29,21 @@ async def on_ready():
     print('Hello, Checking bot is ready!')
     channel = client.get_channel(CHANNEL_ID)
     client.loop.create_task(watch())
+    message = Mail(
+        from_email='carinamoraru0520@gmail.com',
+        to_emails='mariamoraru0709@gmail.com',
+        subject='Sending with Twilio SendGrid is Fun',
+        plain_text_content='Hello, Checking bot is ready!',
+        html_content='<strong>and easy to do anywhere, even with Python</strong>')
+    try:
+        tt = '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'
+        sg = SendGridAPIClient(tt)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e.message)
     await channel.send("Hello, Checking bot is ready!")
 
 async def watch():
