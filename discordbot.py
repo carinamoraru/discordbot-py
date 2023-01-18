@@ -4,15 +4,18 @@ from discord.ext import commands, tasks
 from datetime import datetime
 import asyncio
 import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from trycourier import Courier
 
 PREFIX = os.environ['PREFIX']
 TOKEN = os.environ['TOKEN']
-SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
+COURIER_TOKEN = os.environ['COURIER_TOKEN']
+RECEIVE_EMAIL = os.environ['RECEIVE_EMAIL']
 CHANNEL_ID = 1063880677436690552
 MAX_SESSION_TIME_MINUTES = 1
 PC_COUNT = 2
+courier_client = Courier(auth_token=COURIER_TOKEN)
+RECEIVE_EMAIL = "mariamoraru0709@gmail.com"
+
 pcStatusList = []
 isSentList = []
 timeList = []
@@ -30,20 +33,20 @@ async def on_ready():
     print('Hello, Checking bot is ready!')
     channel = client.get_channel(CHANNEL_ID)
     client.loop.create_task(watch())
-    message = Mail(
-        from_email='carinamoraru0520@gmail.com',
-        to_emails='mariamoraru0709@gmail.com',
-        subject='Sending with Twilio SendGrid is Fun',
-        plain_text_content='Hello, Checking bot is ready!',
-        html_content='<strong>and easy to do anywhere, even with Python</strong>')
-    try:
-        sg = SendGridAPIClient(SENDGRID_API_KEY)
-        response = sg.send(message)
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
-    except Exception as e:
-        print(e.message)
+    courier_client.send_message(
+        message={
+            "to": {
+                "email": RECEIVE_EMAIL
+            },
+            "content": {
+                "title": "Request from Discord",
+                "body": "computer{{pc}} is wrong!"
+            },
+            "data": {
+                "pc": 0
+            }
+        }
+    )
     await channel.send("Hello, Checking bot is ready!")
 
 async def watch():
