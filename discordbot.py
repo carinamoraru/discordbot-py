@@ -14,6 +14,7 @@ CHANNEL_ID = 1063880677436690552
 MAX_SESSION_TIME_MINUTES = 1
 courier_client = Courier(auth_token=COURIER_TOKEN)
 
+pcNumberList = []
 pcStatusList = []
 isSentList = []
 timeList = []
