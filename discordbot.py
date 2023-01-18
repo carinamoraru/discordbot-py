@@ -9,6 +9,7 @@ from sendgrid.helpers.mail import Mail
 
 PREFIX = os.environ['PREFIX']
 TOKEN = os.environ['TOKEN']
+SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
 CHANNEL_ID = 1063880677436690552
 MAX_SESSION_TIME_MINUTES = 1
 PC_COUNT = 2
@@ -36,7 +37,7 @@ async def on_ready():
         plain_text_content='Hello, Checking bot is ready!',
         html_content='<strong>and easy to do anywhere, even with Python</strong>')
     try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(message)
         print(response.status_code)
         print(response.body)
