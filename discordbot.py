@@ -36,7 +36,7 @@ async def watch():
     while True:
         bound = MAX_SESSION_TIME_MINUTES * 60
         intTime = bound
-        while intTime > 2:
+        while intTime > 18:
             async for message in channel.history(limit=1):
                 timeTemp = datetime.now().strftime("%H%M%S")
                 now = int(str(timeTemp)[0:2]) * 3600 + int(str(timeTemp)[2:4]) * 60 + int(str(timeTemp)[4:6])
@@ -59,10 +59,10 @@ async def watch():
                         isSentList.append(0)
                 try:
                     await message.delete()
+                    # await channel.purge(limit=1)
                 except:
-                    pass
-                # await channel.purge(limit=1)
-
+                    pass  
+                
             await asyncio.sleep(1)
             intTime -= 1           
 
