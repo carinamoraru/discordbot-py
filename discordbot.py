@@ -88,11 +88,11 @@ async def watch():
         for pcStatus in pcStatusList:
             if pcStatus == 0 and isSentList[order] == 0:
                 isSentList[order] = 1
-                # send_email("computer" + str(pcNumberList[order]) + " Was Stopped")
+                send_email("computer" + str(pcNumberList[order]) + " Was Stopped")
                 print("computer" + str(pcNumberList[order]) + " Was Stopped")
             if pcStatus == 1 and isSentList[order] == 0:
                 isSentList[order] = 1
-                # send_email("computer" + str(pcNumberList[order]) + " Was Started")
+                send_email("computer" + str(pcNumberList[order]) + " Was Started")
                 print("computer" + str(pcNumberList[order]) + " Was Started")
             if pcStatus == 2:
                 isSentList[order] = 0
